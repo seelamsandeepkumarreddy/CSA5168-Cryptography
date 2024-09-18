@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    unsigned int a[3][3] = {{6, 24, 1}, {13, 16, 10}, {20, 17, 15}};
+    unsigned int b[3][3] = {{8, 5, 10}, {21, 8, 21}, {21, 12, 8}};
+    unsigned int c[3] = {0}, d[3] = {0};
+    char msg[4];
+
+    printf("Enter plain text (max 3 characters): ");
+    scanf("%3s", msg);
+
+    int len = strlen(msg);
+    if (len > 3) {
+        printf("Text is too long. Maximum length is 3 characters.\n");
+        return 1;
+    }
+    for (int i = 0; i < len; i++) {
+        c[i] = msg[i] - 'A';
+        printf("%d ", c[i]);
+    }
+    for (int i = len; i < 3; i++) {
+        c[i] = 23;
+    }
+    printf("\n");
+    unsigned int temp1[3] = {0};
+    for (int i = 0; i < 3; i++) {
+        unsigned int t = 0;
+        for (int j = 0; j < 3; j++) {
+            t += a[i][j] * c[j];
+        }
+        temp1[i] = t % 26;
+    }
+
+    for (int i = 0; i < 3; i++) {
+        d[i] = temp1[i];
+    }
+
+    printf("Encrypted Cipher Text: ");
+    for (int i = 0; i < 3; i++) {
+        printf("%c", d[i] + 'A');
+    }
+    printf("\n");
+    unsigned int temp2[3] = {0};
+    for (int i = 0; i < 3; i++) {
+        unsigned int t = 0;
+        for (int j = 0; j < 3; j++) {
+            t += b[i][j] * d[j];
+        }
+        temp2[i] = t % 26;
+    }
+
+    for (int i = 0; i < 3; i++) {
+        c[i] = temp2[i];
+    }
+
+    printf("Decrypted Cipher Text: ");
+    for (int i = 0; i < 3; i++) {
+        printf("%c", c[i] + 'A');
+    }
+    printf("\n");
+
+    return 0;
+}
