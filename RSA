@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<cmath>
+int main()
+{
+	int p=3,q=11;
+	int n,x,y;
+	int e,d;
+	n=p*q;
+	x=(p-1)*(q-1);
+	for(int i=2;i<20;i++)
+	{
+		if(x % i!=0)
+		{
+			e=i;
+			break;
+		}
+	}
+	printf("public key is:%d  %d\n",e,n);
+	for(int i=2;i<100;i++)
+	{
+		if((e*i) % x ==1)
+		{
+			d=i;
+			break;
+		}
+	}
+	printf("private key is:%d  %d\n",d,n);
+	int pt=7,ct;
+	int en,de;
+	int m=pow(pt,e);
+	en=m % n;
+	int l=pow(en,d);
+	de=l % n;
+	printf("encryption is:%d\n",en);
+	printf("decryption is:%d\n",de);
+	return 0;
+}
